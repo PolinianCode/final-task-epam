@@ -1,5 +1,5 @@
 class LoginForm {
-        //Selectors
+    //Selectors to get all required DOM elements
     get usernameInput() {
         return $('#user-name')
     }
@@ -18,70 +18,54 @@ class LoginForm {
 
     // Actions with selectors
 
+     /**
+     * Setting up credentials to login form
+     * @param {string} username - Set user login.
+     * @param {string} password - Set user password.
+     */
+
     async provideCredentials(username, password) {
         await this.usernameInput.setValue(username)
         await this.passwordInput.setValue(password)
     }
 
+
+    /**
+     * Function to clear field using hot keys(Chrome bug fix)
+     * @param {WebdriverIO.Element} inputElement - Input field to clear.
+     */
+
+    async clearField(inputElement) {
+        await inputElement.click();
+        await browser.keys(['Control', 'a']); // Hot key to select whole text in the input field
+        await browser.keys('Backspace');  // Clear the content of the field
+    }
+
+    /**
+     * Clears inputs for both login form fields
+     */
     async clearInputs() {
-
-        await this.usernameInput.click(); 
-        let usernameValue = await this.usernameInput.getValue();
-        while (usernameValue !== '') { 
-            await browser.keys(['Control', 'a']);
-            await browser.keys('Backspace');
-            usernameValue = await this.usernameInput.getValue();
-        }
-
-        await browser.pause(300);
-
-        await this.passwordInput.click(); 
-        let passwordValue = await this.passwordInput.getValue();
-        while (passwordValue !== '') { 
-            await browser.keys(['Control', 'a']);
-            await browser.keys('Backspace');
-            passwordValue = await this.passwordInput.getValue();
-        }
-
-        await browser.pause(300);
+        await this.clearField(this.usernameInput);
+        await this.clearField(this.passwordInput);
     }
 
+    /**
+     * Clears only username input field
+     */
     async clearUsernameInput() {
-
-        await this.usernameInput.click();
-        await browser.keys(['Control', 'a']); 
-        await browser.keys('Backspace'); 
-    
-
-        let usernameValue = await this.usernameInput.getValue();
-        while (usernameValue !== '') {
-            await browser.keys(['Control', 'a']);
-            await browser.keys('Backspace');
-            usernameValue = await this.usernameInput.getValue();
-        }
-    
-        await browser.pause(300);
+        await this.clearField(this.usernameInput); 
     }
     
+    /**
+     * Clears only password input field
+     */
     async clearPasswordInput() {
-        await this.passwordInput.click(); 
-        await browser.keys(['Control', 'a']);
-        await browser.keys('Backspace');
-    
-        
-        let passwordValue = await this.passwordInput.getValue();
-        while (passwordValue !== '') {
-            await browser.keys(['Control', 'a']);
-            await browser.keys('Backspace');
-            passwordValue = await this.passwordInput.getValue();
-        }
-    
-        await browser.pause(300);
+        await this.clearField(this.passwordInput);
     }
     
-
-
-
+    /**
+     * Returs the value of an error banner
+     */
     async getErrorText() {
         return await this.errorText.getText()
     } 

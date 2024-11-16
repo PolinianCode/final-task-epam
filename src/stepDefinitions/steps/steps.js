@@ -19,7 +19,7 @@ When('I enter {string} and {string}', async (username, password) => {
     await loginPage.loginForm.provideCredentials(username, password)
 })
 
-When('I clear the {string} and the {string} fields', async () => {
+When('I clear the "Username" and the "Password" fields', async () => {
     await loginPage.loginForm.clearInputs()
 })
 

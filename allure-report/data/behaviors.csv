@@ -1,0 +1,5 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","","0","Test Login form with credentials by passing Username: Attempt to login only with username","12","0","","0"
+"0","","0","Test Login form with empty credentials: Attempt login with empty credentials","12","0","","0"
+"0","","3","","0","0","","0"
+"0","","0","Test Login form with credentials by passing Username & Password: Attempt to login with valid credentials","10","0","","0"
